@@ -5,10 +5,10 @@ COPY .  .
 
 RUN go get -d -v ./...
 RUN go install -v ./...
+RUN apt update
+RUN apt install ffmpeg -y
 
 EXPOSE 8083
 
 ENV GO111MODULE=on
 ENV GIN_MODE=release
-
-CMD go run *.go

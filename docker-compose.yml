@@ -1,0 +1,12 @@
+services:
+    webrtc-gateway:
+        command: "sh -c './capture_video.sh & go run *.go'"
+        devices:
+            - /dev/video0:/dev/video0
+        build: .
+        ports:
+            - 8083:8083
+    rtsp-server:
+        image: aler9/rtsp-simple-server
+        ports:
+            - 8554:8554

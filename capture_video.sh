@@ -1,0 +1,13 @@
+ffmpeg \
+    -i /dev/video0 \
+    -an \
+    -c:v libx264 \
+    -f rtsp \
+    -r 30 \
+    -threads 1 \
+    -rtsp_transport tcp \
+    -vcodec libx264 \
+    -tune zerolatency \
+    -crf 18 \
+    -video_size 320x240 \
+    -f rtsp rtsp://rtsp-server:8554/mystream

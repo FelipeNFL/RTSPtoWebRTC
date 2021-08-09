@@ -1,88 +1,15 @@
-# RTSPtoWebRTC
+# FFmpeg to WebRTC
 
-RTSP Stream to WebBrowser over WebRTC based on Pion
+This project is an extension from https://github.com/deepch/RTSPtoWebRTC that makes a video capture using FFMpeg and transmites by WebRTC to front-end.
 
-full native! not use ffmpeg or gstreamer
+FFmpeg sends the broadcast to RTSP Simple Server (https://hub.docker.com/r/aler9/rtsp-simple-server) and the WebRTC gateway listens the RTSP Server.
 
-if you need RTSPtoWSMP4f use https://github.com/deepch/RTSPtoWSMP4f
+All of these dependencies are installed in the docker's containers.
 
+## Usage
 
-![RTSPtoWebRTC image](doc/demo4.png)
+You need to have installed Docker and Docker Compose to run the project. The command to initialize services is: ```docker-compose up```
 
-### Download Source
+To show the transmission is needed to open your browser in http://127.0.0.1:8083
 
-1. Download source
-   ```bash 
-   $ git clone https://github.com/deepch/RTSPtoWebRTC  
-   ```
-3. CD to Directory
-   ```bash
-    $ cd RTSPtoWebRTC/
-   ```
-4. Test Run
-   ```bash
-    $ GO111MODULE=on go run *.go
-   ```
-5. Open Browser
-    ```bash
-    open web browser http://127.0.0.1:8083 work chrome, safari, firefox
-    ```
-
-## Configuration
-
-### Edit file config.json
-
-format:
-
-```bash
-{
-  "server": {
-    "http_port": ":8083"
-  },
-  "streams": {
-    "demo1": {
-      "on_demand" : false
-      "url": "rtsp://170.93.143.139/rtplive/470011e600ef003a004ee33696235daa"
-    },
-    "demo2": {
-      "on_demand" : true
-      "url": "rtsp://admin:admin123@10.128.18.224/mpeg4"
-    },
-    "demo3": {
-      "on_demand" : false
-      "url": "rtsp://170.93.143.139/rtplive/470011e600ef003a004ee33696235daa"
-    }
-  }
-}
-```
-
-## Livestreams
-
-Use option ``` "on_demand": false ``` otherwise you will get choppy jerky streams and performance issues when multiple clients connect. 
-
-## Limitations
-
-Video Codecs Supported: H264
-
-Audio Codecs Supported: pcm alaw and pcm mulaw 
-
-## Team
-
-Deepch - https://github.com/deepch streaming developer
-
-Dmitry - https://github.com/vdalex25 web developer
-
-Now test work on (chrome, safari, firefox) no MAC OS
-
-## Other Example
-
-Examples of working with video on golang
-
-- [RTSPtoWeb](https://github.com/deepch/RTSPtoWeb)
-- [RTSPtoWebRTC](https://github.com/deepch/RTSPtoWebRTC)
-- [RTSPtoWSMP4f](https://github.com/deepch/RTSPtoWSMP4f)
-- [RTSPtoImage](https://github.com/deepch/RTSPtoImage)
-- [RTSPtoHLS](https://github.com/deepch/RTSPtoHLS)
-- [RTSPtoHLSLL](https://github.com/deepch/RTSPtoHLSLL)
-
-[![paypal.me/AndreySemochkin](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/AndreySemochkin) - You can make one-time donations via PayPal. I'll probably buy a ~~coffee~~ tea. :tea:
+By default, this project uses the device /dev/video0 (Linux). If you need to use other device, change the mapping in the docker-compose.yml and the script capture_video.sh.
